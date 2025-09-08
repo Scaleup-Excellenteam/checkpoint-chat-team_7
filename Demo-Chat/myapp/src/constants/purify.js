@@ -1,11 +1,23 @@
 import axios from "axios";
 import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
+import { serverURL } from "./APIs";
 
-//
-// TODO: Fetch blacklistDomains from the db
-//
+const blacklistApi = serverURL + "blacklistdomains";
 
-// Google Safe Browsing API, PhishTank, VirusTotal.
+const [blacklistedDomains, setblacklistedDomains] = useState([]);
+
+useEffect(() => {
+  const fetchBlackList = async () => {
+    try {
+      const { data } = await axios.get(blacklistApi);
+      setblacklistedDomains(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  fetchBlackList;
+}, []);
 
 // 1. Check message emptiness
 const checkTypeAndEmpty = (message) => {
@@ -39,18 +51,27 @@ const checkSensitiveData = (message) => {
 };
 
 // 5. Detect links
-const blacklistedDomains = ["phishingsite.com", "malware.com"];
 const checkLinks = (message) => {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const urls = message.match(urlRegex);
+
   if (urls && urls.length > 0) {
     for (const url of urls) {
-      const hostname = new URL(url).hostname;
-      if (blacklistedDomains.includes(hostname)) {
-        return { safe: false, reason: "blacklisted_url" };
+      try {
+        // Parse the URL safely
+        const hostname = new URL(url).hostname.toLowerCase();
+
+        // Check against blacklist
+        if (blacklistedDomains.some((domain) => hostname.includes(domain))) {
+          return { safe: false, reason: "blacklisted_url", url };
+        }
+      } catch (e) {
+        // If URL parsing fails, mark as invalid
+        return { safe: false, reason: "invalid_url", url };
       }
     }
   }
+
   return { safe: true };
 };
 

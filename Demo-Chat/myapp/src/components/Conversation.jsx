@@ -5,6 +5,7 @@ import { Send } from "react-bootstrap-icons";
 import Message from "./Message";
 import { useEffect, useMemo, useState } from "react";
 import useWebSocket from "react-use-websocket";
+import { validateFrontendMessage } from "../constants/purify";
 
 const Conversation = ({ conversation, refreshconversations }) => {
   const ws_url = WS_URL;
@@ -27,7 +28,8 @@ const Conversation = ({ conversation, refreshconversations }) => {
   }, [readyState]);
 
   useMemo(() => {
-    if (lastMessage !== null) {
+    const isValid = validateFrontendMessage(message);
+    if (isValid.safe) {
       const parsed = JSON.parse(lastMessage.data);
       if (parsed.sender === sessionStorage["username"]) {
         return;
