@@ -5,9 +5,11 @@ const { WebSocketServer } = require("ws");
 const usersRouter = require("./routers/usersRouter");
 const authRouter = require("./routers/authRouter");
 const convRouter = require("./routers/convRouter");
+const blacklistDomainsRouter = require("./routers/blacklistDomainsRouter");
 
 const usersBLL = require("./BLL/usersBLL");
 const convBLL = require("./BLL/convBLL");
+const blacklistDomainsBLL = require("./BLL/blaclistDomainsBLL");
 
 const path = require("path");
 const mongoose = require("mongoose");

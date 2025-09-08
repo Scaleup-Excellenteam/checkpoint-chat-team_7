@@ -23,9 +23,7 @@ const addConversation = async (obj) => {
 
 // Put
 const updateConversation = async (id, obj) => {
-  console.log(`Updating conversation ${id} with:`, obj);
   const result = await Conv.findByIdAndUpdate(id, obj, { new: true });
-  console.log(`Update result:`, result);
   return "Updated!";
 };
 
