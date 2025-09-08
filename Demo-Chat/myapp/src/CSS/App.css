@@ -1,0 +1,185 @@
+.signuplogin-card {
+  background-color: rgb(25, 128, 196);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: unset;
+}
+
+.signuplogin-card .signuplogin-subcard {
+  width: 360px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5%;
+  border: unset;
+}
+
+.signuplogin-card input,
+.main-card input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid rgb(210, 207, 207);
+}
+
+.signuplogin-card .link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main-card {
+  width: 90%;
+  height: 80%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.allconversations {
+  width: 30%;
+}
+
+.allconversations-responsive {
+  display: none;
+}
+
+.conversation-details {
+  border-radius: unset;
+  border-top: unset;
+  border-left: unset;
+  border-right: unset;
+}
+
+.conversation-details:hover {
+  background-color: rgb(214, 214, 214);
+}
+
+.conversation {
+  border-radius: unset;
+  width: 70%;
+  border-bottom: unset;
+  overflow: hidden;
+}
+
+.conversation-show {
+  display: block !important;
+}
+
+.allmessages {
+  overflow: auto;
+  /* height: 37.2rem; */
+  border-radius: unset;
+  border: unset;
+}
+
+.formcontrol:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.send-button:hover {
+  background-color: rgb(211, 209, 209) !important;
+}
+
+.message {
+  width: max-content;
+  max-width: 30%;
+  cursor: pointer;
+}
+
+.forward-card {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  visibility: hidden;
+  transition: 1s ease-in-out;
+
+}
+
+.forward-card-active {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 500px;
+  visibility: visible;
+  transition: 1s ease-in-out;
+}
+
+.forward-card-active .conv:hover {
+  background-color: rgb(211, 209, 209) !important;
+  cursor: pointer;
+}
+
+.confirm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.no-arrow-dropdown {
+  border: unset !important;
+  background: transparent !important;
+}
+
+.no-arrow-dropdown::after {
+  display: none !important;
+}
+
+.newconversation {
+  width: 50%;
+  height: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.new-conversation-details-card:hover {
+  background-color: rgb(214, 214, 214);
+  cursor: pointer;
+
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, #faf6f6, #000000, #000000, #faf6f6);
+  opacity: 100%;
+}
+
+.newgroup {
+  width: 50%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media(max-width:1299px) {
+  .allconversations {
+    width: 40%;
+  }
+
+  .conversation {
+    width: 60%;
+  }
+}
+
+@media(max-width:767px) {
+  .allconversations {
+    width: 100%;
+  }
+
+  .conversation {
+    width: 100%;
+    display: none;
+  }
+}
