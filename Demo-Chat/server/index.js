@@ -98,7 +98,14 @@ wsServer.on("connection", (ws) => {
   });
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://checkpoint-chat-team-7-1.onrender.com/",
+    ],
+  })
+);
 app.use(express.json());
 
 app.use(express.json());
