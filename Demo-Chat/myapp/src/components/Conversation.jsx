@@ -28,8 +28,7 @@ const Conversation = ({ conversation, refreshconversations }) => {
   }, [readyState]);
 
   useMemo(() => {
-    const isValid = validateFrontendMessage(message);
-    if (isValid.safe) {
+    if (lastMessage !== null) {
       const parsed = JSON.parse(lastMessage.data);
       if (parsed.sender === sessionStorage["username"]) {
         return;
@@ -39,18 +38,20 @@ const Conversation = ({ conversation, refreshconversations }) => {
   }, [lastMessage]);
 
   const handleSendMessage = () => {
-    if (message.trim() !== "") {
+    const isValid = validateFrontendMessage(message, useEffect, useState);
+
+    if (isValid.safe) {
       setallmessages([
         ...allmessages,
         {
-          text: message,
+          text: isValid.text,
           sender: sessionStorage["username"],
           senderId: sessionStorage["userId"],
           groupId: conversation._id,
         },
       ]);
       sendJsonMessage({
-        text: message,
+        text: isValid.text,
         sender: sessionStorage["username"],
         senderId: sessionStorage["userId"],
         groupId: conversation._id,
