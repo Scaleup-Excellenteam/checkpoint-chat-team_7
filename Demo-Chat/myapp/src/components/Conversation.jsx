@@ -5,13 +5,14 @@ import { Send } from "react-bootstrap-icons";
 import Message from "./Message";
 import { useEffect, useMemo, useState } from "react";
 import useWebSocket from "react-use-websocket";
+import { validateMsg } from "../constants/utils";
 
 const Conversation = ({ conversation, refreshconversations }) => {
   const ws_url = WS_URL;
-  const userURL = serverURL + "users";
 
   const [message, setMessage] = useState("");
   const [allmessages, setallmessages] = useState([]);
+  const [isValidate, setisValidate] = useState(true);
 
   useEffect(() => {
     if (conversation?.messages) {
@@ -38,7 +39,7 @@ const Conversation = ({ conversation, refreshconversations }) => {
   }, [lastMessage]);
 
   const handleSendMessage = () => {
-    if (message.trim() !== "") {
+    if (validateMsg(message)) {
       setallmessages([
         ...allmessages,
         {
@@ -55,6 +56,8 @@ const Conversation = ({ conversation, refreshconversations }) => {
         groupId: conversation._id,
         type: "MESSAGE",
       });
+    } else {
+      setisValidate(false);
     }
     setMessage("");
   };
@@ -90,11 +93,16 @@ const Conversation = ({ conversation, refreshconversations }) => {
               value={message}
               aria-label="Type your text..."
               aria-describedby="basic-addon2"
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => {
+                setMessage(e.target.value);
+                setisValidate(true);
+              }}
               onKeyDown={handleKeyPress}
               style={{
                 borderRadius: "unset",
-                border: "1px solid rgb(210, 207, 207)",
+                border: isValidate
+                  ? "1px solid rgb(210, 207, 207)"
+                  : "1px solid red",
                 borderBottom: "unset",
                 borderLeft: "unset",
               }}

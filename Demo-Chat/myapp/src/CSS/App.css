@@ -72,7 +72,7 @@
 
 .allmessages {
   overflow: auto;
-  /* height: 37.2rem; */
+  max-height: 37.2rem;
   border-radius: unset;
   border: unset;
 }
