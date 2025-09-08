@@ -23,9 +23,6 @@ const Login = () => {
       };
       const resp = await axios.post(auth, loginData);
 
-      // const respone = await axios.get(accessurl, {
-      //   headers: { xaccesstoken: resp.data.accessToken },
-      // });
       if (resp.status !== 200) {
         setalert("User name or password is incorrect");
         return;
@@ -44,7 +41,7 @@ const Login = () => {
 
   const handleKeyPress = (e) => {
     if (e.key == "Enter") {
-      Loginn();
+      Loginn(e);
     }
   };
 
@@ -82,21 +79,23 @@ const Login = () => {
                 <Link className="link">Forgot password</Link>
               </Row>
               <Row className="mt-4 mb-4">
-                {isLoading ? (
-                  <Button disabled type="submit">
-                    <Spinner
-                      as="span"
-                      animation="border"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                      className="me-2"
-                    />
-                    Logging in...
-                  </Button>
-                ) : (
-                  <Button type="submit">Login</Button>
-                )}
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-2"
+                      />
+                      Logging in...
+                    </>
+                  ) : (
+                    "Login"
+                  )}
+                </Button>
               </Row>
               <Card.Text className="text-center">
                 Dont have an account?&nbsp;
