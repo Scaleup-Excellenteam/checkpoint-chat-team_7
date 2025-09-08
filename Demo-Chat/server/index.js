@@ -102,7 +102,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://checkpoint-chat-team-7-1.onrender.com/",
+      "https://checkpoint-chat-team-7-1.onrender.com",
     ],
   })
 );
