@@ -5,11 +5,11 @@ const { WebSocketServer } = require("ws");
 const usersRouter = require("./routers/usersRouter");
 const authRouter = require("./routers/authRouter");
 const convRouter = require("./routers/convRouter");
-const blacklistDomainsRouter = require("./routers/blacklistDomainsRouter");
+const blacklistDomainsRouter = require("./routers/blacklistDomainsRouter")
 
 const usersBLL = require("./BLL/usersBLL");
 const convBLL = require("./BLL/convBLL");
-const blacklistDomainsBLL = require("./BLL/blaclistDomainsBLL");
+const blacklistDomainsBLL = require("./BLL/blaclistDomainsBLL")
 
 const path = require("path");
 const mongoose = require("mongoose");
@@ -19,6 +19,7 @@ const port = 3000;
 const app = express();
 const server = http.createServer(app);
 const wsServer = new WebSocketServer({ server });
+const { inspectMessage } = require("./utils/WsLayer");
 
 const clients = new Map();
 
@@ -37,6 +38,26 @@ wsServer.on("connection", (ws) => {
       if (parsedMessage.type === "MESSAGE") {
         const { text, sender, senderId, groupId } = parsedMessage;
 
+        // --- SECURITY GATE (DLP + Google Web Risk) ---
+        if (typeof text !== "string" || text.length > 2000) {
+          return ws.send(JSON.stringify({ type: "error", reason: "msg_too_long" }));
+        }
+
+        const sec = await inspectMessage(text);
+
+        if (sec.action === "block") {
+          // Don’t persist or broadcast — notify sender only
+          return ws.send(JSON.stringify({
+            type: "policy_block",
+            groupId,
+            reasons: sec.reasons
+          }));
+        }
+
+        // Use possibly redacted text
+        const safeText = (sec.action === "redact") ? sec.text : text;
+
+
         // שליפת השיחה
         const conv = await convBLL.getConversationById(groupId);
         if (!conv) {
@@ -47,7 +68,7 @@ wsServer.on("connection", (ws) => {
 
         // בניית הודעה חדשה
         const newMsg = {
-          text,
+          text: safeText,            
           sender,
           senderId,
           sentAt: new Date().toLocaleString(),
@@ -109,6 +130,7 @@ app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
 app.use("/conversations", convRouter);
+app.use("/blacklistdomains", blacklistDomainsRouter)
 
 mongoose
   .connect(

@@ -1,0 +1,10 @@
+{
+  "failMode": "open",               
+  "cacheTTLSeconds": 86400,         
+  "expandShorteners": true,         
+
+  "googleWebRisk": {
+    "enabled": true,
+    "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE"]
+  }
+}
