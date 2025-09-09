@@ -26,33 +26,40 @@ const NewConversation = ({ getuser, closecomp }) => {
 
   return (
     <>
-      <Card className="newconversation p-3">
-        <X size={25} onClick={() => closecomp(false)} cursor="pointer" />
+      <Card className="newconversation">
+        <button className="close-button" onClick={() => closecomp(false)}>
+          <X size={20} />
+        </button>
 
-        <Card className="text-center" style={{ border: "unset" }}>
+        <div className="modal-header">
           <Card.Text className="h5">New Group</Card.Text>
-        </Card>
-        <hr />
-        <Card
-          style={{
-            height: "100%",
-            display: "flex",
-            border: "none",
-            justifyContent: "center",
-          }}
-        >
-          <Card className="align-items-center" style={{ border: "unset" }}>
+        </div>
+
+        <div className="modal-body">
+          <div className="input-container">
             <input
               type="text"
               placeholder="Group Name"
+              value={groupName}
               onChange={(e) => setgroupName(e.target.value)}
-              style={{ width: "50%" }}
             />
-          </Card>
-          <Card className="align-items-center mt-5" style={{ border: "unset" }}>
-            <Button onClick={makeGroup}>Make Group</Button>
-          </Card>
-        </Card>
+          </div>
+          <div className="button-container">
+            <Button
+              className="btn btn-secondary"
+              onClick={() => closecomp(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="btn btn-primary"
+              onClick={makeGroup}
+              disabled={!groupName.trim()}
+            >
+              Create Group
+            </Button>
+          </div>
+        </div>
       </Card>
     </>
   );

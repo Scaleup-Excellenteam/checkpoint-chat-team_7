@@ -69,13 +69,10 @@ const Main = () => {
 
   return (
     <>
-      <Card className="main-card bg-transparent">
-        <Card
-          className="px-1"
-          style={{ borderRadius: "unset", border: "unset" }}
-        >
-          <Dropdown style={{ width: "max-content" }}>
-            <Dropdown.Toggle className=" no-arrow-dropdown">
+      <Card className="main-card">
+        <Card className="px-1">
+          <Dropdown>
+            <Dropdown.Toggle className="no-arrow-dropdown">
               <ThreeDots size={20} color="black" />
             </Dropdown.Toggle>
             <Dropdown.Menu>
@@ -94,18 +91,13 @@ const Main = () => {
             </Dropdown.Menu>
           </Dropdown>
         </Card>
-        <Card
-          className="flex-row"
-          style={{ border: "unset", borderRadius: "unset", height: "100%" }}
-        >
+        <Card className="flex-row">
           <AllConversations
             getconversation={setconversationbyId}
-            // responsive={chooseConv}
             refreshconversations={refresh}
           />
           <Conversation
             conversation={group}
-            // responsive={showMessages}
             refreshconversations={setRefresh}
           />
         </Card>

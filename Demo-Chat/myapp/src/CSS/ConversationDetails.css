@@ -1,0 +1,228 @@
+/* ConversationDetails Component Styles */
+.conversation-details {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: none;
+    border-bottom: 1px solid #e1e5e9;
+    background: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.conversation-details::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+}
+
+.conversation-details:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    transform: translateX(5px);
+}
+
+.conversation-details:hover::before {
+    width: 4px;
+}
+
+.conversation-details.bg-primary {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-left: 4px solid #667eea;
+}
+
+.conversation-details.bg-primary::before {
+    width: 4px;
+}
+
+.conversation-details .avatar-container {
+    flex-shrink: 0;
+    margin-right: 15px;
+    position: relative;
+}
+
+.conversation-details .avatar-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e1e5e9;
+    transition: all 0.3s ease;
+}
+
+.conversation-details:hover .avatar-container img {
+    border-color: #667eea;
+    transform: scale(1.05);
+}
+
+.conversation-details .conversation-info {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+}
+
+.conversation-details .conversation-info h6 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease;
+}
+
+.conversation-details:hover .conversation-info h6 {
+    color: #667eea;
+}
+
+.conversation-details .conversation-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+.conversation-details .conversation-info .last-message {
+    font-weight: 400;
+}
+
+.conversation-details .conversation-info .timestamp {
+    font-size: 0.75rem;
+    color: #adb5bd;
+    margin-top: 2px;
+}
+
+/* Active conversation styling */
+.conversation-details.bg-primary .conversation-info h6 {
+    color: #667eea;
+    font-weight: 700;
+}
+
+.conversation-details.bg-primary .conversation-info p {
+    color: #495057;
+}
+
+/* Online status indicator */
+.conversation-details .online-status {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    background: #28a745;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px #e1e5e9;
+}
+
+.conversation-details .online-status.offline {
+    background: #6c757d;
+}
+
+/* Unread message indicator */
+.conversation-details .unread-indicator {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+/* Animation for new conversations */
+@keyframes conversationSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.conversation-details {
+    animation: conversationSlideIn 0.3s ease-out;
+}
+
+/* Responsive design */
+@media (max-width: 767px) {
+    .conversation-details {
+        padding: 15px;
+    }
+
+    .conversation-details .avatar-container {
+        margin-right: 12px;
+    }
+
+    .conversation-details .avatar-container img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .conversation-details .conversation-info h6 {
+        font-size: 0.9rem;
+    }
+
+    .conversation-details .conversation-info p {
+        font-size: 0.8rem;
+    }
+
+    .conversation-details .unread-indicator {
+        top: 12px;
+        right: 12px;
+        width: 18px;
+        height: 18px;
+        font-size: 0.65rem;
+    }
+}
+
+/* Hover effects for touch devices */
+@media (hover: none) {
+    .conversation-details:hover {
+        background: white;
+        transform: none;
+    }
+
+    .conversation-details:hover::before {
+        width: 0;
+    }
+
+    .conversation-details:hover .avatar-container img {
+        transform: none;
+    }
+
+    .conversation-details:hover .conversation-info h6 {
+        color: #2c3e50;
+    }
+}
+
+/* Focus states for accessibility */
+.conversation-details:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.conversation-details:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}

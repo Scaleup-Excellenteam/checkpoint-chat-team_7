@@ -48,8 +48,8 @@ const Login = () => {
   return (
     <>
       <Card className="signuplogin-card">
-        <Card className="signuplogin-subcard px-3 py-5">
-          <Card.Text className="h3 text-center">Login</Card.Text>
+        <Card className="signuplogin-subcard">
+          <Card.Text className="h3">Login</Card.Text>
           <Container>
             <Form onKeyDown={handleKeyPress} onSubmit={Loginn}>
               <Row className="mt-4">
@@ -70,9 +70,7 @@ const Login = () => {
               </Row>
               {alert && (
                 <Row className="mt-3">
-                  <Card.Text className="text-danger text-center">
-                    {alert}
-                  </Card.Text>
+                  <Card.Text className="text-danger">{alert}</Card.Text>
                 </Row>
               )}
               <Row className="mt-3 text-center">

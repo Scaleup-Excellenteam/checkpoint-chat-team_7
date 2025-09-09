@@ -30,6 +30,11 @@ const Conversation = ({ conversation, refreshconversations }) => {
   useMemo(() => {
     if (lastMessage !== null) {
       const parsed = JSON.parse(lastMessage.data);
+      if (parsed.type !== "MESSAGE") {
+        alert("Bad Text: ");
+        return;
+      }
+
       if (parsed.sender === sessionStorage["username"]) {
         return;
       }
@@ -69,52 +74,48 @@ const Conversation = ({ conversation, refreshconversations }) => {
 
   return (
     <>
-      <Card className="conversation  mt-4">
-        <Card
-          className="flex-row p-1 bg-light"
-          style={{ border: "unset", borderRadius: "unset" }}
-        >
-          <img src={chatperson} alt="" style={{ width: "60px" }} />
-          <h5 className="ms-2 my-auto text-uppercase">
-            {conversation?.groupName}
-          </h5>
-        </Card>
-        <Card className="allmessages px-2">
-          {allmessages?.map((msg, index) => {
-            return <Message key={index} msg={msg} />;
-          })}
-        </Card>
-        {conversation && (
-          <InputGroup className="mt-auto">
-            <FormControl
-              className="formcontrol"
-              placeholder="Type your text..."
-              value={message}
-              aria-label="Type your text..."
-              aria-describedby="basic-addon2"
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={handleKeyPress}
-              style={{
-                borderRadius: "unset",
-                border: "1px solid rgb(210, 207, 207)",
-                borderBottom: "unset",
-                borderLeft: "unset",
-              }}
-            />
-            <Button
-              className="px-3 bg-transparent send-button"
-              id="button-addon2"
-              onClick={handleSendMessage}
-              style={{
-                borderRadius: "unset",
-                border: "1px solid rgb(210, 207, 207)",
-                borderBottom: "unset",
-                borderRight: "unset",
-              }}
-            >
-              <Send size={20} style={{ color: "#3B71CA" }} />
-            </Button>
-          </InputGroup>
+      <Card className="conversation">
+        {conversation ? (
+          <>
+            <Card className="conversation-header">
+              <img src={chatperson} alt="" />
+              <h5>{conversation?.groupName}</h5>
+            </Card>
+            <Card className="allmessages">
+              {allmessages?.length > 0 ? (
+                allmessages.map((msg, index) => {
+                  return <Message key={index} msg={msg} />;
+                })
+              ) : (
+                <div className="empty-conversation">
+                  <h5>No messages yet</h5>
+                  <p>Start the conversation by sending a message!</p>
+                </div>
+              )}
+            </Card>
+            <div className="message-input-container">
+              <FormControl
+                className="formcontrol"
+                placeholder="Type your message..."
+                value={message}
+                aria-label="Type your message..."
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={handleKeyPress}
+              />
+              <Button
+                className="send-button"
+                onClick={handleSendMessage}
+                disabled={!message.trim()}
+              >
+                <Send size={20} />
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="empty-conversation">
+            <h5>Select a conversation</h5>
+            <p>Choose a conversation from the sidebar to start chatting!</p>
+          </div>
         )}
       </Card>
     </>

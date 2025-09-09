@@ -12,17 +12,17 @@ const ConversationDetails = ({ con, activeconv, getconid }) => {
       <Card
         className={
           activeconv === con.with
-            ? "flex-row conversation-details py-4 bg-primary"
-            : "flex-row conversation-details py-4"
+            ? "conversation-details bg-primary"
+            : "conversation-details"
         }
         onClick={() => getconid(con)}
       >
-        <div className="p-1">
-          <img src={chatperson} alt="" style={{ width: "50px" }} />
+        <div className="avatar-container">
+          <img src={chatperson} alt="" />
         </div>
-        <div className="p-1">
+        <div className="conversation-info">
           <h6>{con.groupName}</h6>
-          <p className="text-muted">{lastMessage}</p>
+          <p className="last-message">{lastMessage || "No messages yet"}</p>
         </div>
       </Card>
     </>

@@ -37,39 +37,44 @@ const AllConversations = ({ getconversation, refreshconversation }) => {
 
   return (
     <>
-      <div className="allconversations  mt-4">
-        <input
-          type="text"
-          placeholder="Search..."
-          className="py-1 w-100"
-          onChange={(e) => setforSearch(e.target.value)}
-          style={{
-            borderRadius: "unset",
-            border: "1px solid rgb(210, 207, 207)",
-          }}
-        />
-        {!forSearch &&
-          allconversations?.map((con, index) => {
-            return (
-              <ConversationDetails
-                con={con}
-                getconid={sendid}
-                key={index}
-                activeconv={activechat}
-              />
-            );
-          })}
-        {forSearch &&
-          filterdConversations?.map((con, index) => {
-            return (
-              <ConversationDetails
-                con={con}
-                getconid={sendid}
-                key={index}
-                activeconv={activechat}
-              />
-            );
-          })}
+      <div className="allconversations">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search conversations..."
+            onChange={(e) => setforSearch(e.target.value)}
+          />
+        </div>
+        <div className="conversation-list">
+          {!forSearch &&
+            allconversations?.map((con, index) => {
+              return (
+                <ConversationDetails
+                  con={con}
+                  getconid={sendid}
+                  key={index}
+                  activeconv={activechat}
+                />
+              );
+            })}
+          {forSearch &&
+            filterdConversations?.map((con, index) => {
+              return (
+                <ConversationDetails
+                  con={con}
+                  getconid={sendid}
+                  key={index}
+                  activeconv={activechat}
+                />
+              );
+            })}
+          {(!allconversations || allconversations.length === 0) && (
+            <div className="empty-state">
+              <h6>No conversations yet</h6>
+              <p>Start a new conversation to get started!</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

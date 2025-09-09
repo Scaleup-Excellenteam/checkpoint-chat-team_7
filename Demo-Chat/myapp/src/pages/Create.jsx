@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Card, Container, Form, Row, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../CSS/App.css";
 
 const Create = () => {
   const [username, setusername] = useState("");
@@ -42,9 +41,9 @@ const Create = () => {
   return (
     <>
       <Card className="signuplogin-card">
-        <Card className="signuplogin-subcard px-3 py-5">
+        <Card className="signuplogin-subcard">
           <Container>
-            <Card.Text className="h3 text-center">Sign Up</Card.Text>
+            <Card.Text className="h3">Sign Up</Card.Text>
             <Form onSubmit={createuser}>
               <Row className="mt-3">
                 <input
@@ -80,9 +79,7 @@ const Create = () => {
               </Row>
               {alert && (
                 <Row className="mt-3">
-                  <Card.Text className="text-danger text-center">
-                    {alert}
-                  </Card.Text>
+                  <Card.Text className="text-danger">{alert}</Card.Text>
                 </Row>
               )}
               <Row className="mt-4 mb-2">
@@ -94,7 +91,7 @@ const Create = () => {
                       size="sm"
                       className="me-2"
                     />
-                    Logging in...
+                    Creating account...
                   </Button>
                 ) : (
                   <Button type="submit">Create</Button>

@@ -1,0 +1,112 @@
+/* AllConversations Component Styles */
+.allconversations {
+    width: 30%;
+    background: #f8f9fa;
+    border-right: 1px solid #e1e5e9;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.allconversations input {
+    padding: 15px 20px;
+    border: none;
+    border-bottom: 2px solid #e1e5e9;
+    background: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+    margin: 0;
+}
+
+.allconversations input:focus {
+    outline: none;
+    border-bottom-color: #667eea;
+    background: #f8f9fa;
+    box-shadow: 0 2px 0 rgba(102, 126, 234, 0.2);
+}
+
+.allconversations input::placeholder {
+    color: #6c757d;
+    font-weight: 400;
+}
+
+.allconversations .conversation-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.allconversations .conversation-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.allconversations .conversation-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.allconversations .conversation-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.allconversations .conversation-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Search container */
+.allconversations .search-container {
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+/* Responsive design */
+@media (max-width: 1299px) {
+    .allconversations {
+        width: 40%;
+    }
+}
+
+@media (max-width: 767px) {
+    .allconversations {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e1e5e9;
+    }
+
+    .allconversations-responsive {
+        display: block !important;
+    }
+}
+
+/* Animation for smooth transitions */
+.allconversations {
+    transition: all 0.3s ease;
+}
+
+/* Empty state styling */
+.allconversations .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #6c757d;
+    text-align: center;
+    padding: 20px;
+}
+
+.allconversations .empty-state h6 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.allconversations .empty-state p {
+    font-size: 14px;
+    margin: 0;
+}

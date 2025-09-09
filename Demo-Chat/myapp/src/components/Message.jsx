@@ -7,28 +7,20 @@ const Message = ({ msg }) => {
   return (
     <>
       {senderName === myUsername ? (
-        <Card className="message px-2 p-1 ms-auto mt-2">
-          <div>
-            <strong>{msg.sender}</strong>
-          </div>
+        <Card className="message ms-auto">
+          <strong>{msg.sender}</strong>
           <span>{msg.text}</span>
-          <div>{msg.sentAt}</div>
+          <div className="timestamp">{msg.sentAt}</div>
         </Card>
       ) : (
-        <Card className="flex-row p-1" style={{ border: "unset" }}>
-          <img
-            src={chatperson}
-            alt=""
-            style={{ width: "45px", height: "45px" }}
-          />
-          <Card className="message ms-1 px-2  p-1 me-auto">
-            <div>
-              <strong>{msg.sender}</strong>
-            </div>
+        <div className="message-container">
+          <img src={chatperson} alt="" />
+          <Card className="message me-auto">
+            <strong>{msg.sender}</strong>
             <span>{msg.text}</span>
-            <div>{msg.sentAt}</div>
+            <div className="timestamp">{msg.sentAt}</div>
           </Card>
-        </Card>
+        </div>
       )}
     </>
   );
